@@ -33,7 +33,7 @@ class AnimalCategory(TimeStamp):
     category = models.CharField(max_length=100)
     
     def __str__(self):
-        return f"{self.animal_category}"
+        return f"{self.category}"
 
 class Animal(TimeStamp):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='animals')
@@ -46,6 +46,15 @@ class Animal(TimeStamp):
     gender = models.CharField(max_length=50, choices=ANIMAL_CHOICES)
     color = models.ManyToManyField(AnimalColor, null=True)
     breed = models.ManyToManyField(AnimalBreed, null=True)
+    
+    def all_colors(self):
+        return [c for c in self.color.all()]
+    def all_breeds(self):
+        return [b for b in self.breed.all()]
+    
+    def increment_views(self):
+        self.views +=1
+        self.save()
     
     def __str__(self):
         return f"{self.name}"
