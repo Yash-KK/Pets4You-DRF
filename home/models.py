@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 
 
@@ -51,6 +51,10 @@ class Animal(TimeStamp):
         return [c for c in self.color.all()]
     def all_breeds(self):
         return [b for b in self.breed.all()]
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name) + '-' +str(self.pk)
+        super(Animal, self).save(*args, **kwargs)
     
     def increment_views(self):
         self.views +=1
