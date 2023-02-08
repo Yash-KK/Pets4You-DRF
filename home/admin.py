@@ -13,7 +13,7 @@ from .models import (
 # Register your models here.
 
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ['owner', 'name', 'category','gender', 'all_breeds', 'all_colors']
+    list_display = ['id','owner', 'name', 'category','gender', 'all_breeds', 'all_colors']
     list_display_links = ['owner', 'name']
     
 
